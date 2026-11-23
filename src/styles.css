@@ -1,0 +1,196 @@
+/* src/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Identidad TortiShop - Pastelería & Comercio */
+    --ts-primary: #c81e2b;
+    --ts-primary-hover: #a61621;
+    --ts-primary-soft: #fdecec;
+    --ts-accent-cream: #fdf6f0;
+    --ts-bg-app: #fffdf9;
+    --ts-surface: #ffffff;
+    --ts-border: #eadfd8;
+    --ts-border-subtle: #f3ece7;
+
+    /* Textos */
+    --ts-text-main: #1f242d;
+    --ts-text-secondary: #5c6470;
+    --ts-text-muted: #8c95a2;
+
+    /* Semánticos */
+    --ts-success-bg: #e8f8ef;
+    --ts-success-text: #157347;
+    --ts-warning-bg: #fff5e5;
+    --ts-warning-text: #b45309;
+    --ts-danger-bg: #feeceb;
+    --ts-danger-text: #b91c1c;
+    --ts-neutral-bg: #f1f3f5;
+    --ts-neutral-text: #495057;
+
+    /* Layout & Sombras */
+    --ts-sidebar-width: 260px;
+    --ts-topbar-height: 68px;
+    --ts-radius-sm: 8px;
+    --ts-radius-md: 12px;
+    --ts-radius-lg: 16px;
+    --ts-shadow-sm: 0 2px 8px rgba(31, 36, 45, 0.04);
+    --ts-shadow-md: 0 8px 24px rgba(31, 36, 45, 0.07);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--ts-bg-app);
+    color: var(--ts-text-main);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Botones globales con estados hover y feedback */
+.ts-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: var(--ts-radius-sm);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-decoration: none;
+}
+
+.ts-btn:active {
+    transform: translateY(1px);
+}
+
+.ts-btn-primary {
+    background-color: var(--ts-primary);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(200, 30, 43, 0.22);
+}
+
+.ts-btn-primary:hover {
+    background-color: var(--ts-primary-hover);
+}
+
+.ts-btn-secondary {
+    background-color: var(--ts-surface);
+    color: var(--ts-text-main);
+    border-color: var(--ts-border);
+}
+
+.ts-btn-secondary:hover {
+    background-color: var(--ts-accent-cream);
+    border-color: #d9c7bc;
+}
+
+.ts-btn-ghost {
+    background-color: transparent;
+    color: var(--ts-text-secondary);
+}
+
+.ts-btn-ghost:hover {
+    background-color: var(--ts-primary-soft);
+    color: var(--ts-primary);
+}
+
+/* Tarjetas base */
+.ts-card {
+    background-color: var(--ts-surface);
+    border: 1px solid var(--ts-border);
+    border-radius: var(--ts-radius-md);
+    box-shadow: var(--ts-shadow-sm);
+    padding: 20px;
+}
+
+/* Inputs base */
+.ts-input, .ts-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--ts-border);
+    border-radius: var(--ts-radius-sm);
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: var(--ts-text-main);
+    background-color: #ffffff;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ts-input:focus, .ts-select:focus {
+    outline: none;
+    border-color: var(--ts-primary);
+    box-shadow: 0 0 0 3px rgba(200, 30, 43, 0.12);
+}
+
+/* Vista de carga visible antes de que Angular monte app-root */
+.ts-loading-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ts-bg-app);
+}
+
+.ts-loading-header {
+  height: var(--ts-topbar-height);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  background: var(--ts-surface);
+  border-bottom: 1px solid var(--ts-border);
+}
+
+.ts-loading-header strong,
+.ts-loading-header small {
+  display: block;
+}
+
+.ts-loading-header strong {
+  color: var(--ts-primary);
+  font-size: 1.15rem;
+}
+
+.ts-loading-header small {
+  color: var(--ts-text-secondary);
+  font-size: 0.72rem;
+}
+
+.ts-loading-logo {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--ts-primary);
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.ts-loading-main {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  color: var(--ts-text-secondary);
+}
+
+.ts-loading-footer {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: var(--ts-surface);
+  border-top: 1px solid var(--ts-border);
+  color: var(--ts-text-secondary);
+  font-size: 0.78rem;
+}

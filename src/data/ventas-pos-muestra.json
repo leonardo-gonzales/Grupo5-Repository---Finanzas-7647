@@ -1,0 +1,29 @@
+{
+  "ticketReferencia": "TCK-VISUAL-001",
+  "cajero": "Prof. Luis Tello",
+  "sucursal": "Sucursal Central (Surco)",
+  "itemsSeleccionadosMuestra": [
+    {
+      "sku": "TRT-3L-01",
+      "nombre": "Torta Tres Leches",
+      "categoria": "Tortas",
+      "cantidad_muestra": 1,
+      "precio_unitario_muestra": "S/ 45.00",
+      "importe_muestra": "S/ 45.00"
+    },
+    {
+      "sku": "BOC-D50-04",
+      "nombre": "Bocaditos Dulces x 50",
+      "categoria": "Bocaditos",
+      "cantidad_muestra": 2,
+      "precio_unitario_muestra": "S/ 60.00",
+      "importe_muestra": "S/ 120.00"
+    }
+  ],
+  "resumenVisualEtiquetas": {
+    "subtotalEtiqueta": "S/ ---.-- (Pendiente Etapa 2)",
+    "igvEtiqueta": "S/ ---.-- (Pendiente Etapa 2)",
+    "descuentoEtiqueta": "S/ ---.--",
+    "totalEtiqueta": "S/ ---.--"
+  }
+}

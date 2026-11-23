@@ -1,0 +1,68 @@
+[
+  {
+    "producto_id": 1,
+    "sku": "TRT-3L-01",
+    "nombre_producto": "Torta Tres Leches",
+    "categoria_producto": "Tortas",
+    "precio_contado": 45.00,
+    "precio_credito": 52.00,
+    "stock_referencial": 14,
+    "estado_disponibilidad": "Disponible",
+    "icono": "🍰"
+  },
+  {
+    "producto_id": 2,
+    "sku": "TRT-SN-02",
+    "nombre_producto": "Torta Selva Negra",
+    "categoria_producto": "Tortas",
+    "precio_contado": 50.00,
+    "precio_credito": 58.00,
+    "stock_referencial": 9,
+    "estado_disponibilidad": "Disponible",
+    "icono": "🍫"
+  },
+  {
+    "producto_id": 3,
+    "sku": "PST-PM-03",
+    "nombre_producto": "Pie de Manzana Artesanal",
+    "categoria_producto": "Postres",
+    "precio_contado": 35.00,
+    "precio_credito": 40.00,
+    "stock_referencial": 11,
+    "estado_disponibilidad": "Disponible",
+    "icono": "🥧"
+  },
+  {
+    "producto_id": 4,
+    "sku": "BOC-D50-04",
+    "nombre_producto": "Bocaditos Dulces x 50",
+    "categoria_producto": "Bocaditos",
+    "precio_contado": 60.00,
+    "precio_credito": 70.00,
+    "stock_referencial": 20,
+    "estado_disponibilidad": "Disponible",
+    "icono": "🧁"
+  },
+  {
+    "producto_id": 5,
+    "sku": "PST-CF-05",
+    "nombre_producto": "Cheesecake de Fresa",
+    "categoria_producto": "Postres",
+    "precio_contado": 55.00,
+    "precio_credito": 64.00,
+    "stock_referencial": 0,
+    "estado_disponibilidad": "No disponible",
+    "icono": "🍓"
+  },
+  {
+    "producto_id": 6,
+    "sku": "TRT-RV-06",
+    "nombre_producto": "Torta Red Velvet",
+    "categoria_producto": "Tortas",
+    "precio_contado": 70.00,
+    "precio_credito": 82.00,
+    "stock_referencial": 6,
+    "estado_disponibilidad": "Disponible",
+    "icono": "🎂"
+  }
+]

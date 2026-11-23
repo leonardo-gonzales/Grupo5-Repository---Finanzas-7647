@@ -1,0 +1,24 @@
+[
+  {
+    "recibo_id": "RC-8841",
+    "cliente": "Luis Tello",
+    "credito_id": "CR-2024-001",
+    "cuota_nro": "Cuota #1",
+    "fecha_pago": "15/09/2024",
+    "dias_atraso": 0,
+    "mora_visual": "S/ 0.00",
+    "importe_liquidado": "S/ 78.00",
+    "metodo_pago": "Efectivo"
+  },
+  {
+    "recibo_id": "RC-8842",
+    "cliente": "Rosa Alarcón",
+    "credito_id": "CR-2024-014",
+    "cuota_nro": "Cuota #2",
+    "fecha_pago": "20/10/2024",
+    "dias_atraso": 3,
+    "mora_visual": "S/ 2.10",
+    "importe_liquidado": "S/ 112.10",
+    "metodo_pago": "Yape / Plin"
+  }
+]

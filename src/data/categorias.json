@@ -1,0 +1,30 @@
+[
+  {
+    "categoria_id": 1,
+    "nombre": "Tortas",
+    "descripcion": "Tortas enteras clásicas y especiales para eventos y celebraciones",
+    "cantidad_productos": 8,
+    "estado": "Activa"
+  },
+  {
+    "categoria_id": 2,
+    "nombre": "Postres",
+    "descripcion": "Pies, cheesecakes y postres fríos por unidad o molde",
+    "cantidad_productos": 6,
+    "estado": "Activa"
+  },
+  {
+    "categoria_id": 3,
+    "nombre": "Bocaditos",
+    "descripcion": "Cajas de bocaditos dulces y salados para catering",
+    "cantidad_productos": 4,
+    "estado": "Activa"
+  },
+  {
+    "categoria_id": 4,
+    "nombre": "Campaña / Temporada",
+    "descripcion": "Productos temáticos por festividades del calendario",
+    "cantidad_productos": 2,
+    "estado": "Inactiva"
+  }
+]

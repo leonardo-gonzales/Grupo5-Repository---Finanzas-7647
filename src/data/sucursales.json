@@ -1,0 +1,26 @@
+[
+  {
+    "sucursal_id": 1,
+    "nombre_sucursal": "Sucursal Central — Tortas Gaby",
+    "direccion_sucursal": "Av. Benavides 4820",
+    "telefono_sucursal": "01 271 4520",
+    "distrito_sucursal": "Santiago de Surco",
+    "estado": "Operativa"
+  },
+  {
+    "sucursal_id": 2,
+    "nombre_sucursal": "Sucursal Caminos del Inca",
+    "direccion_sucursal": "Av. Caminos del Inca 1645",
+    "telefono_sucursal": "01 275 8810",
+    "distrito_sucursal": "Santiago de Surco",
+    "estado": "Operativa"
+  },
+  {
+    "sucursal_id": 3,
+    "nombre_sucursal": "Sucursal Higuereta",
+    "direccion_sucursal": "Av. Aviación 5090",
+    "telefono_sucursal": "01 448 3092",
+    "distrito_sucursal": "Santiago de Surco",
+    "estado": "Operativa"
+  }
+]

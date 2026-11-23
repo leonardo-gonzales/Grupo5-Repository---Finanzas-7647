@@ -1,0 +1,38 @@
+[
+  {
+    "proveedor_id": 1,
+    "razon_social": "Molinos & Harinas del Perú S.A.",
+    "ruc": "20100458921",
+    "contacto": "Jorge Ramírez",
+    "telefono": "01 612 4400",
+    "rubro": "Harinas, premezclas y azúcar",
+    "estado": "Activo"
+  },
+  {
+    "proveedor_id": 2,
+    "razon_social": "Lácteos Andinos S.A.C.",
+    "ruc": "20512894310",
+    "contacto": "Valeria Campos",
+    "telefono": "998 412 309",
+    "rubro": "Crema de leche, mantequilla y quesos",
+    "estado": "Activo"
+  },
+  {
+    "proveedor_id": 3,
+    "razon_social": "Cacao & Coberturas Finas S.R.L.",
+    "ruc": "20601984235",
+    "contacto": "Diego Paredes",
+    "telefono": "987 220 115",
+    "rubro": "Chocolate bitter, cacao y frutos secos",
+    "estado": "Activo"
+  },
+  {
+    "proveedor_id": 4,
+    "razon_social": "Empaques Dulce Arte E.I.R.L.",
+    "ruc": "20548712098",
+    "contacto": "Sofía Salas",
+    "telefono": "945 871 230",
+    "rubro": "Cajas de tortas, bases y cintas",
+    "estado": "Inactivo"
+  }
+]

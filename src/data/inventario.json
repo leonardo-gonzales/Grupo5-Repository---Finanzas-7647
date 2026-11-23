@@ -1,0 +1,46 @@
+[
+  {
+    "inventario_id": 1,
+    "sku": "TRT-3L-01",
+    "producto": "Torta Tres Leches",
+    "categoria": "Tortas",
+    "sucursal": "Sucursal Central (Surco)",
+    "stock_actual": 14,
+    "stock_minimo": 5,
+    "unidad_medida": "Unidad",
+    "estado_stock": "Óptimo"
+  },
+  {
+    "inventario_id": 2,
+    "sku": "TRT-SN-02",
+    "producto": "Torta Selva Negra",
+    "categoria": "Tortas",
+    "sucursal": "Sucursal Central (Surco)",
+    "stock_actual": 4,
+    "stock_minimo": 5,
+    "unidad_medida": "Unidad",
+    "estado_stock": "Stock Bajo"
+  },
+  {
+    "inventario_id": 3,
+    "sku": "BOC-D50-04",
+    "producto": "Bocaditos Dulces x 50",
+    "categoria": "Bocaditos",
+    "sucursal": "Sucursal Caminos del Inca",
+    "stock_actual": 20,
+    "stock_minimo": 8,
+    "unidad_medida": "Caja x 50",
+    "estado_stock": "Óptimo"
+  },
+  {
+    "inventario_id": 4,
+    "sku": "PST-CF-05",
+    "producto": "Cheesecake de Fresa",
+    "categoria": "Postres",
+    "sucursal": "Sucursal Central (Surco)",
+    "stock_actual": 0,
+    "stock_minimo": 4,
+    "unidad_medida": "Unidad",
+    "estado_stock": "Agotado"
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "cliente_id": 1,
+    "nombres_razon_social": "Luis Tello",
+    "dni_ruc": "42891045",
+    "telefono_cliente": "987 654 321",
+    "correo": "luis.tello@correo.pe",
+    "limite_credito": 1500.00,
+    "saldo_utilizado": 600.00,
+    "credito_disponible": 900.00,
+    "estado": "Activo"
+  },
+  {
+    "cliente_id": 2,
+    "nombres_razon_social": "María Fernández",
+    "dni_ruc": "10982341",
+    "telefono_cliente": "971 234 567",
+    "correo": "maria.fernandez@correo.pe",
+    "limite_credito": 2000.00,
+    "saldo_utilizado": 1450.00,
+    "credito_disponible": 550.00,
+    "estado": "Activo"
+  },
+  {
+    "cliente_id": 3,
+    "nombres_razon_social": "Panadería El Sol S.A.C.",
+    "dni_ruc": "20549812763",
+    "telefono_cliente": "01 445 8920",
+    "correo": "compras@panaderiaelsol.pe",
+    "limite_credito": 5000.00,
+    "saldo_utilizado": 3820.00,
+    "credito_disponible": 1180.00,
+    "estado": "Activo"
+  },
+  {
+    "cliente_id": 4,
+    "nombres_razon_social": "Carlos Mendoza",
+    "dni_ruc": "45678912",
+    "telefono_cliente": "954 112 890",
+    "correo": "cmendoza@correo.pe",
+    "limite_credito": 800.00,
+    "saldo_utilizado": 800.00,
+    "credito_disponible": 0.00,
+    "estado": "Inactivo"
+  },
+  {
+    "cliente_id": 5,
+    "nombres_razon_social": "Rosa Alarcón",
+    "dni_ruc": "09452381",
+    "telefono_cliente": "966 781 204",
+    "correo": "rosa.alarcon@correo.pe",
+    "limite_credito": 1200.00,
+    "saldo_utilizado": 320.00,
+    "credito_disponible": 880.00,
+    "estado": "Activo"
+  }
+]
