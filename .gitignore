@@ -42,3 +42,9 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+
+# Salida de pruebas locales
+/tests/generated/
+/.angular
+/node_modules

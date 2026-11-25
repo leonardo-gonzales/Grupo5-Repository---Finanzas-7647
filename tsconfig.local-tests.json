@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "outDir": "tests/generated",
+    "skipLibCheck": true,
+    "types": [],
+    "strict": false
+  },
+  "include": [
+    "src/app/core/finanzas/motor-financiero.ts",
+    "src/app/core/finanzas/pagos.ts",
+    "src/app/core/services/local-store.ts"
+  ]
+}

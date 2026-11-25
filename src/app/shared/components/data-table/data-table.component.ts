@@ -22,11 +22,7 @@ import { CommonModule } from '@angular/common';
       @if (footerText) {
         <div class="ts-table-footer">
           <span>{{ footerText }}</span>
-          <div class="ts-pagination-visual">
-            <button class="ts-btn ts-btn-secondary" type="button">Anterior</button>
-            <button class="ts-btn ts-btn-primary" type="button">1</button>
-            <button class="ts-btn ts-btn-secondary" type="button">Siguiente</button>
-          </div>
+
         </div>
       }
     </div>

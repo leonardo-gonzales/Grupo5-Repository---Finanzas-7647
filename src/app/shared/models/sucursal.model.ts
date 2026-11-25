@@ -4,5 +4,5 @@ export interface Sucursal {
     direccion_sucursal: string;
     telefono_sucursal: string;
     distrito_sucursal: string;
-    estado: 'Operativa' | 'Mantenimiento';
+    estado: 'Operativa' | 'Inactiva' | 'Mantenimiento';
 }

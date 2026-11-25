@@ -1,19 +1,15 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-/**
- * Servicio centralizado para leer los archivos .json locales en Etapa 1.
- * En Etapa 2 se reemplazará la URL base por los endpoints de la API REST.
- */
-@Injectable({
-    providedIn: 'root'
-})
+import { Injectable } from '@angular/core';
+import { Observable, defer } from 'rxjs';
+import { operacionLocal } from './local-store';
+@Injectable({ providedIn: 'root' })
 export class JsonDataService {
-    private readonly http = inject(HttpClient);
-    private readonly basePath = 'data';
-
-    getData<T>(fileName: string): Observable<T> {
-        return this.http.get<T>(`${this.basePath}/${fileName}.json`);
-    }
+  getData<T>(fileName: string): Observable<T> {
+    return defer(() => operacionLocal<T>(`/data/${fileName}`));
+  }
+  guardarRegistro(file: string, id: number | null, value: unknown) {
+    return operacionLocal(`/catalog/${file}${id ? '/' + id : ''}`, id ? 'PUT' : 'POST', value);
+  }
+  eliminarRegistro(file: string, id: number) {
+    return operacionLocal(`/catalog/${file}/${id}`, 'DELETE');
+  }
 }

@@ -1,0 +1,129 @@
+V6 — resultados reales de npm run test:local (Node 22.16.0)
+
+
+> temptortishopbeta@0.0.0 test:local
+> node node_modules/typescript/bin/tsc -p tsconfig.local-tests.json && node --test tests/*.test.cjs
+
+TAP version 13
+# Subtest: Informe 1: TEA, gracia, cronograma, TCEA y pago
+ok 1 - Informe 1: TEA, gracia, cronograma, TCEA y pago
+  ---
+  duration_ms: 35.931836
+  type: 'test'
+  ...
+# Subtest: Informe 2: TNA, pago único, mora, imputación y rechazo parcial
+ok 2 - Informe 2: TNA, pago único, mora, imputación y rechazo parcial
+  ---
+  duration_ms: 13.218326
+  type: 'test'
+  ...
+# Subtest: Informe 3: seis cuotas, mora intermedia no altera cronograma
+ok 3 - Informe 3: seis cuotas, mora intermedia no altera cronograma
+  ---
+  duration_ms: 11.367637
+  type: 'test'
+  ...
+# Subtest: Fechas de corte, año bisiesto y cambio de año
+ok 4 - Fechas de corte, año bisiesto y cambio de año
+  ---
+  duration_ms: 0.279997
+  type: 'test'
+  ...
+# Subtest: Tasa cero y uso exacto de línea
+ok 5 - Tasa cero y uso exacto de línea
+  ---
+  duration_ms: 1.166635
+  type: 'test'
+  ...
+# Subtest: Exceso de línea, incluida capitalización
+ok 6 - Exceso de línea, incluida capitalización
+  ---
+  duration_ms: 0.854244
+  type: 'test'
+  ...
+# Subtest: Entradas inválidas
+ok 7 - Entradas inválidas
+  ---
+  duration_ms: 0.782529
+  type: 'test'
+  ...
+# Subtest: Pago duplicado, fuera de orden, fecha futura y excedente
+ok 8 - Pago duplicado, fuera de orden, fecha futura y excedente
+  ---
+  duration_ms: 1.846179
+  type: 'test'
+  ...
+# Subtest: Liquidación completa y consistencia de centavos
+ok 9 - Liquidación completa y consistencia de centavos
+  ---
+  duration_ms: 1.801149
+  type: 'test'
+  ...
+# Subtest: Hora de corte y día de pago 31 tras febrero
+ok 10 - Hora de corte y día de pago 31 tras febrero
+  ---
+  duration_ms: 0.627497
+  type: 'test'
+  ...
+# Subtest: Mora efectiva anual y no capitalizable
+ok 11 - Mora efectiva anual y no capitalizable
+  ---
+  duration_ms: 1.22509
+  type: 'test'
+  ...
+# Subtest: Almacenamiento local: sesión, catálogo, crédito, pagos, caja y recarga
+ok 12 - Almacenamiento local: sesión, catálogo, crédito, pagos, caja y recarga
+  ---
+  duration_ms: 147.630472
+  type: 'test'
+  ...
+# Subtest: Inicio limpio; conserva proveedores y persiste cambios
+ok 13 - Inicio limpio; conserva proveedores y persiste cambios
+  ---
+  duration_ms: 34.264247
+  type: 'test'
+  ...
+# Subtest: Migra v2 y créditos de versión original sin repetir ni borrar operaciones
+ok 14 - Migra v2 y créditos de versión original sin repetir ni borrar operaciones
+  ---
+  duration_ms: 33.648224
+  type: 'test'
+  ...
+# Subtest: V5: negocios separados, alta/baja, permisos y acceso cliente
+ok 15 - V5: negocios separados, alta/baja, permisos y acceso cliente
+  ---
+  duration_ms: 237.386561
+  type: 'test'
+  ...
+# Subtest: V5: condiciones por cliente y modalidades del producto, pago consolidado y cierre
+ok 16 - V5: condiciones por cliente y modalidades del producto, pago consolidado y cierre
+  ---
+  duration_ms: 41.983727
+  type: 'test'
+  ...
+# (node:2906) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: SQLite nativo: persistencia física, reapertura, eliminación y rollback del adaptador SQL
+ok 17 - SQLite nativo: persistencia física, reapertura, eliminación y rollback del adaptador SQL
+  ---
+  duration_ms: 25.982186
+  type: 'test'
+  ...
+# Subtest: SQLite WASM (sql.js): exportar y reabrir la base binaria
+ok 18 - SQLite WASM (sql.js): exportar y reabrir la base binaria # SKIP Instalar dependencia sql.js con npm ci
+  ---
+  duration_ms: 0.236897
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 576.53515
+
+TypeScript y Angular ngc --noEmit: aprobados.
+Descarga sql.js: bloqueada por EAI_AGAIN (DNS). npm ci, Angular CLI build, prueba WASM/OPFS real y migración real de IndexedDB pendientes.
