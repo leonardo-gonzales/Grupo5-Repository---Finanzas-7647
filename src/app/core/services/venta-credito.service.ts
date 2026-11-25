@@ -1,45 +1,52 @@
 import { Injectable, signal } from '@angular/core';
-import { EntradaVenta, ResultadoVenta } from '../finanzas/motor-financiero';
-
-export interface VentaGuardada {
-  id: string;
-  clienteId: number;
-  clienteNombre: string;
-  producto: string;
-  entrada: EntradaVenta;
-  resultado: ResultadoVenta;
-  creadaEn: string;
-}
-
-const KEY = 'tortishop-ventas-credito';
-
-/** Persistencia local (localStorage). En la Etapa 2 se reemplaza por la API REST. */
+import { r2 } from '../finanzas/motor-financiero';
+import { VentaGuardada, saldoVenta } from '../finanzas/pagos';
+import { operacionLocal } from './local-store';
+export type { VentaGuardada } from '../finanzas/pagos';
+export { saldoVenta, cotizarPago } from '../finanzas/pagos';
 @Injectable({ providedIn: 'root' })
 export class VentaCreditoService {
-  readonly ventas = signal<VentaGuardada[]>(this.leer());
-
-  guardar(v: Omit<VentaGuardada, 'id' | 'creadaEn'>): VentaGuardada {
-    const nueva: VentaGuardada = {
-      ...v,
-      id: 'CR-' + String(this.ventas().length + 1).padStart(4, '0'),
-      creadaEn: new Date().toISOString(),
-    };
-    this.ventas.update(l => [...l, nueva]);
-    this.escribir();
+  readonly ventas = signal<VentaGuardada[]>([]);
+  readonly apertura = signal<Record<string, number>>({});
+  readonly listo = signal(false);
+  readonly error = signal('');
+  async cargar() {
+    this.listo.set(false);
+    this.error.set('');
+    try {
+      this.ventas.set(await operacionLocal<VentaGuardada[]>('/creditos'));
+      this.apertura.set(await operacionLocal<Record<string, number>>('/apertura'));
+      this.listo.set(true);
+    } catch (e) {
+      this.error.set((e as Error).message);
+    }
+  }
+  async guardar(v: Omit<VentaGuardada, 'id' | 'creadaEn'>): Promise<VentaGuardada> {
+    const nueva = await operacionLocal<VentaGuardada>('/creditos', 'POST', {
+      clienteId: v.clienteId,
+      productoId: v.productoId,
+      sucursalId: v.sucursalId,
+      entrada: v.entrada,
+    });
+    this.ventas.update((l) => [...l.filter((x) => x.id !== nueva.id), nueva]);
     return nueva;
   }
-
-  /** Saldo capital vigente de un cliente: suma de saldos iniciales de las ventas registradas. */
-  saldoPendienteCliente(clienteId: number): number {
-    return this.ventas()
-      .filter(v => v.clienteId === clienteId && v.resultado.aprobada)
-      .reduce((a, v) => a + (v.resultado.saldoCapitalizado ?? 0), 0);
+  saldoPendienteCliente(id: number) {
+    return r2(
+      (this.apertura()[id] ?? 0) +
+        this.ventas()
+          .filter((v) => v.clienteId === id)
+          .reduce((a, v) => a + saldoVenta(v), 0),
+    );
   }
-
-  private leer(): VentaGuardada[] {
-    try { return JSON.parse(localStorage.getItem(KEY) ?? '[]'); } catch { return []; }
-  }
-  private escribir() {
-    try { localStorage.setItem(KEY, JSON.stringify(this.ventas())); } catch { /* sin almacenamiento */ }
+  async pagar(id: string, k: number, fecha: string, monto: number, metodo: string) {
+    const v = await operacionLocal<VentaGuardada>(`/creditos/${id}/pagos`, 'POST', {
+      cuota: k,
+      fecha,
+      monto,
+      metodo,
+    });
+    this.ventas.update((l) => l.map((x) => (x.id === id ? v : x)));
+    return v;
   }
 }

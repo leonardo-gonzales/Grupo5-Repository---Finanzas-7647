@@ -5,9 +5,9 @@
     "dni_ruc": "42891045",
     "telefono_cliente": "987 654 321",
     "correo": "luis.tello@correo.pe",
-    "limite_credito": 1500.00,
-    "saldo_utilizado": 600.00,
-    "credito_disponible": 900.00,
+    "limite_credito": 1500.0,
+    "saldo_utilizado": 0,
+    "credito_disponible": 1500.0,
     "estado": "Activo"
   },
   {
@@ -16,9 +16,9 @@
     "dni_ruc": "10982341",
     "telefono_cliente": "971 234 567",
     "correo": "maria.fernandez@correo.pe",
-    "limite_credito": 2000.00,
-    "saldo_utilizado": 1450.00,
-    "credito_disponible": 550.00,
+    "limite_credito": 2000.0,
+    "saldo_utilizado": 0,
+    "credito_disponible": 2000.0,
     "estado": "Activo"
   },
   {
@@ -27,9 +27,9 @@
     "dni_ruc": "20549812763",
     "telefono_cliente": "01 445 8920",
     "correo": "compras@panaderiaelsol.pe",
-    "limite_credito": 5000.00,
-    "saldo_utilizado": 3820.00,
-    "credito_disponible": 1180.00,
+    "limite_credito": 5000.0,
+    "saldo_utilizado": 0,
+    "credito_disponible": 5000.0,
     "estado": "Activo"
   },
   {
@@ -38,9 +38,9 @@
     "dni_ruc": "45678912",
     "telefono_cliente": "954 112 890",
     "correo": "cmendoza@correo.pe",
-    "limite_credito": 800.00,
-    "saldo_utilizado": 800.00,
-    "credito_disponible": 0.00,
+    "limite_credito": 800.0,
+    "saldo_utilizado": 0,
+    "credito_disponible": 800.0,
     "estado": "Inactivo"
   },
   {
@@ -49,9 +49,42 @@
     "dni_ruc": "09452381",
     "telefono_cliente": "966 781 204",
     "correo": "rosa.alarcon@correo.pe",
-    "limite_credito": 1200.00,
-    "saldo_utilizado": 320.00,
-    "credito_disponible": 880.00,
+    "limite_credito": 1200.0,
+    "saldo_utilizado": 0,
+    "credito_disponible": 1200.0,
+    "estado": "Activo"
+  },
+  {
+    "cliente_id": 6,
+    "nombres_razon_social": "Cliente de prueba 1",
+    "dni_ruc": "00000001",
+    "telefono_cliente": "000000000",
+    "correo": "prueba1@example.test",
+    "limite_credito": 1500,
+    "saldo_utilizado": 0,
+    "credito_disponible": 1500,
+    "estado": "Activo"
+  },
+  {
+    "cliente_id": 7,
+    "nombres_razon_social": "Cliente de prueba 2",
+    "dni_ruc": "00000002",
+    "telefono_cliente": "000000000",
+    "correo": "prueba2@example.test",
+    "limite_credito": 2000,
+    "saldo_utilizado": 0,
+    "credito_disponible": 2000,
+    "estado": "Activo"
+  },
+  {
+    "cliente_id": 8,
+    "nombres_razon_social": "Cliente de prueba 3",
+    "dni_ruc": "00000003",
+    "telefono_cliente": "000000000",
+    "correo": "prueba3@example.test",
+    "limite_credito": 3000,
+    "saldo_utilizado": 0,
+    "credito_disponible": 3000,
     "estado": "Activo"
   }
 ]

@@ -23,9 +23,20 @@ export function sumarMeses(iso: string, meses: number): string {
 }
 
 /** Compra hasta el día de corte -> vence ese mes; compra posterior -> pasa al mes siguiente. */
-export function fechaPagoDeCompra(fechaCompra: string, diaCorte: number, diaPago: number): string {
+export function fechaPagoDeCompra(
+  fechaCompra: string,
+  diaCorte: number,
+  diaPago: number,
+  horaCompra = '00:00',
+  horaCorte = '23:59',
+): string {
   const c = aFecha(fechaCompra);
-  const extra = c.getUTCDate() <= diaCorte ? 0 : 1;
+  const corteReal = Math.min(
+    diaCorte,
+    new Date(Date.UTC(c.getUTCFullYear(), c.getUTCMonth() + 1, 0)).getUTCDate(),
+  );
+  const extra =
+    c.getUTCDate() < corteReal || (c.getUTCDate() === corteReal && horaCompra <= horaCorte) ? 0 : 1;
   const base = new Date(Date.UTC(c.getUTCFullYear(), c.getUTCMonth() + extra, 1));
   const ultimo = new Date(Date.UTC(base.getUTCFullYear(), base.getUTCMonth() + 1, 0)).getUTCDate();
   base.setUTCDate(Math.min(diaPago, ultimo));
@@ -60,19 +71,25 @@ export interface FilaCronograma {
   saldo: number;
 }
 
-export function generarCronograma(S: number, tem: number, n: number, fechaPago: string): FilaCronograma[] {
-  const C = cuotaFrancesa(S, tem, n);
-  let saldo = S;
+export function generarCronograma(
+  S: number,
+  tem: number,
+  n: number,
+  fechaPago: string,
+  diaPactado = aFecha(fechaPago).getUTCDate(),
+): FilaCronograma[] {
+  const C = r2(cuotaFrancesa(S, tem, n));
+  let saldo = r2(S);
   const filas: FilaCronograma[] = [];
   for (let k = 1; k <= n; k++) {
     const saldoInicial = saldo;
-    const interes = saldo * tem;
-    const cuota = k === n ? saldo + interes : C; // ajuste de cierre: saldo final = 0
-    const amort = cuota - interes;
-    saldo = k === n ? 0 : saldo - amort;
+    const interes = r2(saldo * tem);
+    const amort = k === n ? saldo : Math.min(saldo, r2(C - interes));
+    const cuota = r2(amort + interes);
+    saldo = r2(saldo - amort);
     filas.push({
       k,
-      vencimiento: sumarMeses(fechaPago, k),
+      vencimiento: fechaPagoDeCompra(sumarMeses(fechaPago.slice(0, 8) + '01', k), 31, diaPactado),
       saldoInicial: r2(saldoInicial),
       interes: r2(interes),
       amortizacion: r2(amort),
@@ -87,6 +104,13 @@ export function generarCronograma(S: number, tem: number, n: number, fechaPago: 
 export const interesMoratorio = (Sv: number, tnm: number, dm: number) =>
   dm <= 0 || tnm === 0 ? 0 : Sv * (tnm / 360) * dm;
 
+export const moraPactada = (sv: number, tasa: number, dias: number, tipo = 'TNM') =>
+  dias <= 0
+    ? 0
+    : tipo === 'TEMORA'
+      ? sv * Math.expm1((Math.log1p(tasa) * dias) / 360)
+      : interesMoratorio(sv, tasa, dias);
+
 export const saldoInsoluto = (C: number, tem: number, n: number, k: number) =>
   tem === 0 ? C * (n - k) : (C * (1 - Math.pow(1 + tem, -(n - k)))) / tem;
 
@@ -100,12 +124,16 @@ export const pagoValido = (monto: number, totalExigible: number) => r2(monto) >=
 export function tceaPorFechas(
   montoNeto: number,
   fechaInicio: string,
-  flujos: { fecha: string; monto: number }[]
+  flujos: { fecha: string; monto: number }[],
 ): number {
   const f = (i: number) =>
-    flujos.reduce((a, x) => a + x.monto / Math.pow(1 + i, diasEntre(fechaInicio, x.fecha) / 360), 0) - montoNeto;
-  let lo = 0, hi = 1;
-  while (f(hi) > 0) hi *= 2;
+    flujos.reduce(
+      (a, x) => a + x.monto / Math.pow(1 + i, diasEntre(fechaInicio, x.fecha) / 360),
+      0,
+    ) - montoNeto;
+  let lo = 0,
+    hi = 1;
+  while (f(hi) > 0 && hi < 1e12) hi *= 2;
   for (let it = 0; it < 200; it++) {
     const mid = (lo + hi) / 2;
     f(mid) > 0 ? (lo = mid) : (hi = mid);
@@ -118,15 +146,21 @@ export const tceaPagoUnico = (tem: number) => Math.pow(1 + tem, 12) - 1;
 
 // ---------- Operación completa: venta a crédito ----------
 export interface EntradaVenta {
-  monto: number;          // P
-  limite: number;         // L
-  pendientes?: number;    // Cp: saldo vigente del cliente
-  fechaCompra: string;    // YYYY-MM-DD
+  monto: number; // P
+  limite: number; // L
+  pendientes?: number; // Cp: saldo vigente del cliente
+  fechaCompra: string; // YYYY-MM-DD
   diaCorte: number;
   diaPago: number;
-  cuotas: number;         // n
+  cuotas: number; // n
   tipoTasa: TipoTasa;
-  tasa: number;           // decimal
+  tasa: number; // decimal
+  modalidad?: 'unico' | 'cuotas';
+  tnm?: number;
+  tipoMora?: 'TNM' | 'TEMORA';
+  horaCompra?: string;
+  horaCorte?: string;
+  moneda?: 'PEN' | 'USD';
 }
 
 export interface ResultadoVenta {
@@ -144,17 +178,84 @@ export interface ResultadoVenta {
 }
 
 export function procesarVentaCredito(e: EntradaVenta): ResultadoVenta {
-  const disponible = r2(lineaDisponible(e.limite, e.pendientes ?? 0));
-  if (e.monto <= 0 || e.cuotas < 1 || e.tasa < 0)
-    return { aprobada: false, motivo: 'Datos inválidos: revisa monto, cuotas y tasa.', lineaDisponible: disponible };
+  const disponible = Math.max(0, r2(lineaDisponible(e.limite, e.pendientes ?? 0)));
+  if (
+    ![e.monto, e.limite, e.pendientes ?? 0, e.tasa, e.tnm ?? 0].every(Number.isFinite) ||
+    e.monto < 0.01 ||
+    e.monto > 99999999 ||
+    e.limite < 0 ||
+    e.limite > 99999999 ||
+    (e.pendientes ?? 0) < 0 ||
+    !Number.isInteger(e.cuotas) ||
+    e.cuotas < 1 ||
+    e.cuotas > 60 ||
+    e.tasa < 0 ||
+    e.tasa > 1 ||
+    (e.tnm ?? 0) < 0 ||
+    (e.tnm ?? 0) > 1 ||
+    ![e.diaCorte, e.diaPago].every((d) => Number.isInteger(d) && d >= 1 && d <= 31) ||
+    e.diaPago < e.diaCorte ||
+    ![e.horaCompra ?? '00:00', e.horaCorte ?? '23:59'].every((h) =>
+      /^([01]\d|2[0-3]):[0-5]\d$/.test(h),
+    ) ||
+    !fechaValida(e.fechaCompra) ||
+    e.fechaCompra > hoyLocal() ||
+    !['TEA', 'TNA'].includes(e.tipoTasa)
+  )
+    return {
+      aprobada: false,
+      motivo: 'Datos inválidos: revisa monto, cuotas y tasa.',
+      lineaDisponible: disponible,
+    };
   if (e.monto > disponible)
-    return { aprobada: false, motivo: `Supera la línea disponible (S/ ${disponible.toFixed(2)}).`, lineaDisponible: disponible };
+    return {
+      aprobada: false,
+      motivo: `Supera la línea disponible (${e.moneda ?? 'PEN'} ${disponible.toFixed(2)}).`,
+      lineaDisponible: disponible,
+    };
 
   const tem = calcularTEM(e.tasa, e.tipoTasa);
-  const fechaPago = fechaPagoDeCompra(e.fechaCompra, e.diaCorte, e.diaPago);
+  const fechaPago = fechaPagoDeCompra(
+    e.fechaCompra,
+    e.diaCorte,
+    e.diaPago,
+    e.horaCompra,
+    e.horaCorte,
+  );
   const g = diasEntre(e.fechaCompra, fechaPago);
   const S = capitalizarGracia(e.monto, tem, g);
-  const cronograma = generarCronograma(S, tem, e.cuotas, fechaPago);
+  const unico = e.modalidad === 'unico';
+  const cronograma = unico
+    ? [
+        {
+          k: 1,
+          vencimiento: fechaPago,
+          saldoInicial: r2(e.monto),
+          interes: r2(S - e.monto),
+          amortizacion: r2(e.monto),
+          cuota: r2(S),
+          saldo: 0,
+        },
+      ]
+    : generarCronograma(S, tem, e.cuotas, fechaPago, e.diaPago);
+  if (!Number.isFinite(S) || (!unico && cuotaFrancesa(S, tem, e.cuotas) < 0.01))
+    return {
+      aprobada: false,
+      motivo: 'Importe demasiado pequeño o fuera de rango.',
+      lineaDisponible: disponible,
+    };
+  if (r2(unico ? e.monto : S) > disponible)
+    return {
+      aprobada: false,
+      motivo: 'El capital con gracia supera la línea disponible.',
+      lineaDisponible: disponible,
+    };
+  if (cronograma.some((f) => f.cuota <= 0 || f.amortizacion <= 0 || f.saldo < 0))
+    return {
+      aprobada: false,
+      motivo: 'Importe insuficiente para el número de cuotas.',
+      lineaDisponible: disponible,
+    };
   return {
     aprobada: true,
     lineaDisponible: disponible,
@@ -163,8 +264,31 @@ export function procesarVentaCredito(e: EntradaVenta): ResultadoVenta {
     tem,
     interesGracia: r2(S - e.monto),
     saldoCapitalizado: r2(S),
-    cuotaFija: r2(cuotaFrancesa(S, tem, e.cuotas)),
-    tcea: tceaPorFechas(e.monto, e.fechaCompra, cronograma.map(f => ({ fecha: f.vencimiento, monto: f.cuota }))),
+    cuotaFija: unico ? r2(S) : r2(cuotaFrancesa(S, tem, e.cuotas)),
+    // Flujos monetarios realmente cobrables, sin mora futura ni cargos inexistentes.
+    tcea:
+      unico && g === 0
+        ? 0
+        : tceaPorFechas(
+            e.monto,
+            e.fechaCompra,
+            cronograma.map((f) => ({ fecha: f.vencimiento, monto: f.cuota })),
+          ),
     cronograma,
   };
+}
+
+export function hoyLocal(): string {
+  const p = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Lima',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+  return ['year', 'month', 'day'].map((k) => p.find((x) => x.type === k)!.value).join('-');
+}
+export function fechaValida(s: string): boolean {
+  return (
+    /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(aFecha(s).getTime()) && aISO(aFecha(s)) === s
+  );
 }

@@ -21,13 +21,9 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
-                "glob": "**/*",
-                "input": "public"
-              },
-              {
-                "glob": "**/*.json",
-                "input": "src/data",
-                "output": "data"
+                "glob": "sql-wasm.*",
+                "input": "node_modules/sql.js/dist",
+                "output": "assets/sqlite"
               }
             ],
             "styles": [
